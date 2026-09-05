@@ -52,6 +52,22 @@ Same pattern as the verified skills: build output is the `--load-extension` path
 - Output location is template-dependent (not always `.output/` like WXT).
   Read the build log to find the unpacked extension directory.
 
+## Verified (real test run 2026-09-06)
+
+- `npx extension@latest create <dir> --template javascript` scaffolds a
+  side-panel app; `npm run build` → **`dist/chromium/`** (browser-suffixed).
+- 6/6 CDP assertions pass on the build output.
+- **Template manifest lacks `storage` permission by default** — add it to
+  `src/manifest.json` `chromium:permissions` or storage asserts fail with
+  `Cannot read properties of undefined (reading 'local')`.
+- Manifest uses `chromium:` / `firefox:` prefixed keys (one file, both
+  browsers) — `chromium:manifest_version`, `firefox:manifest_version`,
+  `chromium:action`, `firefox:browser_action`, etc.
+- Built SW: `background/service_worker.js` (read from built manifest).
+- Content script renders into a **shadow DOM** at `[data-extension-root]` —
+  query `root.shadowRoot.getElementById(...)` (same pattern as Plasmo CSUI).
+- Side panel page loadable as `chrome-extension://<id>/sidebar/index.html`.
+
 ## Sources
 - [extension](https://www.npmjs.com/package/extension) v4.1.12 — npm README
 - [extension.js.org](https://extension.js.org) — docs + templates index

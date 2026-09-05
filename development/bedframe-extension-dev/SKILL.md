@@ -55,6 +55,28 @@ Same integration pattern as WXT/Plasmo: `bedframe build` → `dist/` is the
   override required Chrome-specific fields.
 - Smaller ecosystem than WXT/Plasmo — fewer community examples.
 
+## Verified (real test run 2026-09-06, @bedframe/cli 0.1.2)
+
+- **`bedframe make -y` scaffold is broken**: generates a plain Vite/React app
+  with NO `src/manifests/`, no manifest, no extension entries; `bedframe build`
+  then fails (`ENOENT src/manifests`, `concurrently: command not found`).
+  Working path: hand-write `src/manifests/base.manifest.ts` +
+  `<browser>.ts` (`createManifest(base, "chrome")`), `npm i @bedframe/core
+  --legacy-peer-deps`, then build with the Vite plugin.
+- Vite plugin usage: `import { bedframe } from "@bedframe/core"` (NAMED export,
+  not default) → `plugins: [bedframe([chrome])]` where `chrome` is the
+  BuildTarget from `createManifest`.
+- **Entrypoints live at PROJECT ROOT** (`popup.html`, `background.js`,
+  `content.js`) — files in `src/` fail with UNRESOLVED_ENTRY.
+- Build output: `dist/` with manifest.json + `service-worker-loader.js`
+  (CRXJS-style module loader). Read `background.service_worker` from the
+  BUILT manifest for SW targeting.
+- `npm install` needs `--legacy-peer-deps` (@bedframe/core 0.1.0 declares
+  peer vite 2-4; project uses vite 8).
+- 6/6 CDP assertions pass once scaffolded correctly.
+- `bedframe make` is interactive for remaining prompts even with flags; `-y`
+  skips prompts but produces the broken scaffold above.
+
 ## Sources
 - [@bedframe/cli](https://www.npmjs.com/package/@bedframe/cli)
 - [@bedframe/core](https://www.npmjs.com/package/@bedframe/core)

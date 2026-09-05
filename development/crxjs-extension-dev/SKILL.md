@@ -62,6 +62,20 @@ or pass `--browser` flag.
 - `web_accessible_resources` auto-generated — don't manually duplicate in
   `manifest.json`.
 
+## Verified (real test run 2026-09-06)
+
+- `npm run build` → `dist/` works as `--load-extension` path; 6/6 CDP assertions pass.
+- **CRXJS 2.x has NO `manifest.json` at root** — it's `manifest.config.js`
+  (`defineManifest({...})`) referenced from `vite.config.ts` `crx({ manifest })`.
+- Built SW path is rewritten to **`service-worker-loader.js`** (module type) —
+  read `manifest.json` `background.service_worker` from the BUILD OUTPUT and
+  match that exact filename when finding the SW target. Substring matching
+  "background" collides with stale Chrome processes from other frameworks.
+- Content script matches default to `https://*/*` — change to `<all_urls>`
+  to test on http://localhost.
+- `vite-plugin-zip-pack` is included: `npm run build` also emits
+  `release/crx-<name>-<version>.zip` (store-ready).
+
 ## Sources
 - [@crxjs/vite-plugin](https://www.npmjs.com/package/@crxjs/vite-plugin) v2.7.1
 - [crxjs.dev](https://crxjs.dev) — docs (llms.txt available)
