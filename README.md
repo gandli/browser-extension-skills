@@ -10,9 +10,10 @@ extensions — in the open [Agent Skills](https://agentskills.io) format
 (`SKILL.md`), installable into **78+ coding agents**. Vanilla manifest or a
 framework — **WXT, Plasmo, Extension.js, CRXJS, Bedframe** all covered.
 
-Born from verified sessions: the testing harness runs **23/23 real-browser (6/6 builds + chrome://extensions checks)
-E2E checks** on a raw MV3 extension, **6/6** on a WXT build, **5/5** on a
-Plasmo build — all against live Chrome over CDP.
+Born from verified sessions: the harness runs **23/23 real-browser E2E
+checks** on a raw MV3 extension and **6/6** on every framework build
+(WXT, Plasmo, CRXJS, Extension.js, Bedframe) — plus chrome://extensions
+management-page checks on all six. All against live Chrome over CDP.
 
 ## Install
 
@@ -57,7 +58,7 @@ cp -r browser-extension-skills/development/* browser-extension-skills/testing/* 
 | **development/** | `chrome-extensions` | Google Modern Web Guidance: 20 mandatory MV3 rules + 18 API references + Chrome Web Store publishing (CHROMEWEBSTORE.md template, review checklist) |
 | | `chrome-extension-dev` | Hub skill — routes by task, ties the build+test loop together |
 | | `wxt-extension-dev` | WXT framework (Vite-powered MV3): `npx wxt` auto-launch + HMR, Vitest + fake-browser unit tests, E2E routed to the CDP harness. **Verified 6/6** |
-| | `plasmo-extension-dev` | Plasmo SDK (React/TS, declarative package.json manifest, CSUI shadow-root content UI). **Verified 5/5** |
+| | `plasmo-extension-dev` | Plasmo SDK (React/TS, declarative package.json manifest, CSUI shadow-root content UI). **Verified 6/6** |
 | | `extension-js-extension-dev` | Extension.js (zero-config CLI, Chrome/Edge/Firefox/Safari, multi-framework HMR). **Verified 6/6** |
 | | `crxjs-extension-dev` | CRXJS (`@crxjs/vite-plugin`, true content-script HMR, Chrome-first MV3). **Verified 6/6** |
 | | `bedframe-extension-dev` | Bedframe (Vite CLI, per-browser manifest deltas, zip/publish workflow). **Verified 6/6** |

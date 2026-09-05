@@ -5,7 +5,7 @@ description: Load unpacked extension over CDP via Chrome for Testing.
 
 # Chrome extension E2E testing over raw CDP
 
-Proven harness: `/Users/user/ext-e2e-test/` (23/23 checks, e2e_test.py + update_test.py + run_all.py). Reusable CDP client installed as this skill's `scripts/cdplib.py` (~150 lines, websocket-client only) — copy it into new projects.
+Proven harness: `~/ext-e2e-test/` (23/23 checks; 6/6 on every framework build incl. chrome://extensions management page) — e2e_test.py + update_test.py + run_all.py). Reusable CDP client installed as this skill's `scripts/cdplib.py` (~150 lines, websocket-client only) — copy it into new projects.
 
 ## Why not stable Chrome
 Chrome 137+ stable **silently ignores** `--load-extension` (no error, extension never loads). Use Chrome for Testing — same stable codebase, automation build, flag works:
