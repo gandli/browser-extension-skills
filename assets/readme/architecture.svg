@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Three-layer architecture: development, testing, debugging</title>
+  <desc id="desc">A column diagram showing the three skill layers with their contents listed as terminal-style rows.</desc>
+
+  <defs>
+    <style>
+      .bg   { fill: #0b0d10; }
+      .box  { fill: #15191f; stroke: #2a2f37; stroke-width: 1; }
+      .ink  { fill: #f2f3f5; }
+      .mut  { fill: #8b929c; }
+      .acc  { fill: #4f8cff; }
+      .grn  { fill: #3fb950; }
+      .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="360" rx="18" class="bg"/>
+  <text x="60" y="46" class="sans ink" font-size="26" font-weight="600">What's Inside</text>
+  <line x1="60" y1="62" x2="1140" y2="62" stroke="#2a2f37" stroke-width="1"/>
+
+  <!-- col 1: development -->
+  <g transform="translate(60 88)">
+    <rect x="0" y="0" width="340" height="236" rx="14" class="box"/>
+    <circle cx="24" cy="24" r="8" class="acc"/>
+    <text x="42" y="30" class="sans ink" font-size="20" font-weight="600">development/</text>
+    <text x="18" y="64" class="mono mut" font-size="14">$ ls</text>
+    <text x="18" y="90" class="mono ink" font-size="15">chrome-extensions/</text>
+    <text x="32" y="114" class="mono mut" font-size="13">20 MV3 rules</text>
+    <text x="32" y="136" class="mono mut" font-size="13">18 API references</text>
+    <text x="32" y="158" class="mono mut" font-size="13">CWS publishing (4 refs)</text>
+    <text x="18" y="184" class="mono ink" font-size="15">chrome-extension-dev/</text>
+    <text x="32" y="208" class="mono mut" font-size="13">hub skill · build+test loop</text>
+  </g>
+
+  <!-- col 2: testing -->
+  <g transform="translate(430 88)">
+    <rect x="0" y="0" width="340" height="236" rx="14" class="box"/>
+    <circle cx="24" cy="24" r="8" class="grn"/>
+    <text x="42" y="30" class="sans ink" font-size="20" font-weight="600">testing/</text>
+    <text x="18" y="64" class="mono mut" font-size="14">$ python3 run_all.py</text>
+    <text x="18" y="90" class="mono ink" font-size="15">chrome-for-testing-extensions/</text>
+    <text x="32" y="114" class="mono mut" font-size="13">Chrome for Testing binary</text>
+    <text x="32" y="136" class="mono mut" font-size="13">--load-extension + CDP</text>
+    <text x="32" y="158" class="mono mut" font-size="13">cdplib.py (websocket-client)</text>
+    <text x="32" y="184" class="mono mut" font-size="13">23/23 checks verified</text>
+    <text x="18" y="218" class="mono acc" font-size="13">screenshot · upgrade · SW log</text>
+  </g>
+
+  <!-- col 3: debugging -->
+  <g transform="translate(800 88)">
+    <rect x="0" y="0" width="340" height="236" rx="14" class="box"/>
+    <circle cx="24" cy="24" r="8" fill="#f0883e"/>
+    <text x="42" y="30" class="sans ink" font-size="20" font-weight="600">debugging/</text>
+    <text x="18" y="64" class="mono mut" font-size="14">$ ls debugging/</text>
+    <text x="18" y="90" class="mono ink" font-size="15">chrome-devtools-mcp family</text>
+    <text x="32" y="114" class="mono mut" font-size="13">chrome-devtools · cli</text>
+    <text x="32" y="136" class="mono mut" font-size="13">a11y · cookie · LCP</text>
+    <text x="32" y="158" class="mono mut" font-size="13">memory-leak · troubleshoot</text>
+    <text x="18" y="188" class="mono acc" font-size="13">MCP tools for live pages</text>
+  </g>
+</svg>
