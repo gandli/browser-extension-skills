@@ -7,7 +7,12 @@ description: Build + real-browser-test Chrome MV3 extensions end to end.
 
 Companion skills (read first for specifics):
 - `chrome-extensions` — Google Modern Web Guidance: 20 mandatory MV3 rules + 25 reference files (permissions, storage, message-passing, service-worker, side-panel, webstore/CHROMEWEBSTORE.md). Load it for ANY `manifest.json` / API / publishing question.
-- `wxt-extension-dev` — WXT framework (Vite-powered MV3) when the user wants a build pipeline instead of hand-written manifest.json. E2E still routes to the harness below.
+- Framework skills — pick by user's stack; all route E2E to the harness below:
+  - `wxt-extension-dev` — WXT (Vite, entrypoints/, verified 6/6)
+  - `plasmo-extension-dev` — Plasmo (React/TS, declarative manifest, CSUI, verified 5/5)
+  - `extension-js-extension-dev` — Extension.js (zero-config, Chrome/Edge/Firefox/Safari)
+  - `crxjs-extension-dev` — CRXJS (Vite plugin, true content-script HMR)
+  - `bedframe-extension-dev` — Bedframe (Vite CLI, per-browser manifest deltas)
 - `chrome-for-testing-extensions` — raw CDP harness to load + drive unpacked extensions (Chrome for Testing, --load-extension, SW targeting, screenshots).
 - `chrome-devtools` + siblings (a11y, cookie, lcp, memory-leak) — debug/audit a *running* page/extension.
 
@@ -16,6 +21,10 @@ Companion skills (read first for specifics):
 |------|-----|
 | Write manifest.json / use chrome.* API | `chrome-extensions` |
 | Scaffold with WXT (`wxt.config.ts`, `entrypoints/`) | `wxt-extension-dev` |
+| Scaffold with Plasmo (`src/`, CSUI, `@plasmohq/*`) | `plasmo-extension-dev` |
+| Scaffold with Extension.js (`npx extension create`) | `extension-js-extension-dev` |
+| Vite plugin + content-script HMR (CRXJS) | `crxjs-extension-dev` |
+| Per-browser manifest deltas (Bedframe) | `bedframe-extension-dev` |
 | Audit live page (a11y, perf, cookies) | `chrome-devtools`, `a11y-debugging`, `cookie-debugging`, `debug-optimize-lcp`, `memory-leak-debugging` |
 | Load unpacked + drive over CDP + assert | `chrome-for-testing-extensions` |
 | Full build+test loop (this skill) | below |

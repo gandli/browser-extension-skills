@@ -7,3 +7,4 @@ node_modules/
 .output/
 wxt-demo/.output/
 wxt-demo/chrome-profile-*/
+plasmo-demo/
