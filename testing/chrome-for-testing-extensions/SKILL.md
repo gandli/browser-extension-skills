@@ -49,7 +49,7 @@ Open `chrome-extension://<id>/popup.html` via `Target.createTarget` — identica
 ## MV3 test hooks (fixture design)
 background.js: `onInstalled` → `storage.local.set({lastInstallReason})`; `onMessage` ping → pong + `console.log` (proves SW alive via CDP event capture). popup.js: expose `window.__ping = () => chrome.runtime.sendMessage({type:'ping'})` for round-trip tests.
 
-## Management page (chrome://extensions) — verified 2026-09-06
+## Management page (chrome://extensions)
 
 - WebUI renders ASYNC. A fixed `sleep` returns 0 cards — poll until
   `extensions-manager > [shadow] extensions-item-list > [shadow] extensions-item`
