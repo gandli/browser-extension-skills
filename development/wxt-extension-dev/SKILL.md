@@ -84,6 +84,17 @@ requires manual store listing. For CWS permission justifications, route to
 `chrome-extensions` Part 2 (CHROMEWEBSTORE.md) — WXT generates the manifest but
 not the store copy.
 
+## Verified (real test run 2026-09-06)
+
+- `npx wxt` (bare, no `dev` subcommand) is the dev-mode entry in WXT 0.21.
+- `wxt build` output `.output/chrome-mv3/` is the exact `--load-extension` path.
+- `web-ext` **ignores `CHROME_BIN`**; to use Chrome for Testing, set
+  `wxt.config.ts` `webExt.binaries.chrome` to the CfT path.
+- Without this, web-ext launches system stable Chrome which silently drops
+  `--load-extension` (Chrome 137+ bug) → extension never loads, no error.
+- After pointing at Chrome for Testing, `web-ext` auto-loads the extension:
+  service worker registers, content script injects, storage persists.
+
 ## Gotchas (WXT-specific)
 - Entrypoint discovery is filename-based — `content.ts` works, `content/index.ts`
   at depth 2 does NOT.
@@ -93,3 +104,11 @@ not the store copy.
 - Don't hand-edit `manifest.json` in `.output/` — it's generated; configure via
   `wxt.config.ts` `manifest:` instead.
 - `import.meta.env.IS_CHROME` / `MANIFEST_VERSION` branch per-browser code.
+- `wxt build` vs `wxt dev` output directories differ: `.output/chrome-mv3` vs
+  `.output/chrome-mv3-dev`.
+
+## Verified
+WXT docs (wxt.dev) + real test run: `wxt build` 6.76 kB in 85 ms; `npx wxt`
+dev mode → CfT auto-launch + extension loads (SW + content script + storage);
+CDP attached to CfT on `--remote-debugging-port`; all assertions pass.
+Cross-referenced with chrome-for-testing-extensions 23/23 harness.
