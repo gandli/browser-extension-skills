@@ -93,8 +93,3 @@ not the store copy.
 - Don't hand-edit `manifest.json` in `.output/` — it's generated; configure via
   `wxt.config.ts` `manifest:` instead.
 - `import.meta.env.IS_CHROME` / `MANIFEST_VERSION` branch per-browser code.
-
-## Verified
-WXT docs (wxt.dev): entrypoints, E2E (Playwright + `.output/chrome-mv3`), unit
-(Vitest + fake-browser), browser-startup (web-ext auto-launch), publishing
-(zip/submit). Cross-referenced with chrome-for-testing-extensions 23/23 harness.

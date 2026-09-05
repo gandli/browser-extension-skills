@@ -7,6 +7,7 @@ description: Build + real-browser-test Chrome MV3 extensions end to end.
 
 Companion skills (read first for specifics):
 - `chrome-extensions` — Google Modern Web Guidance: 20 mandatory MV3 rules + 25 reference files (permissions, storage, message-passing, service-worker, side-panel, webstore/CHROMEWEBSTORE.md). Load it for ANY `manifest.json` / API / publishing question.
+- `wxt-extension-dev` — WXT framework (Vite-powered MV3) when the user wants a build pipeline instead of hand-written manifest.json. E2E still routes to the harness below.
 - `chrome-for-testing-extensions` — raw CDP harness to load + drive unpacked extensions (Chrome for Testing, --load-extension, SW targeting, screenshots).
 - `chrome-devtools` + siblings (a11y, cookie, lcp, memory-leak) — debug/audit a *running* page/extension.
 
@@ -14,6 +15,7 @@ Companion skills (read first for specifics):
 | Task | Use |
 |------|-----|
 | Write manifest.json / use chrome.* API | `chrome-extensions` |
+| Scaffold with WXT (`wxt.config.ts`, `entrypoints/`) | `wxt-extension-dev` |
 | Audit live page (a11y, perf, cookies) | `chrome-devtools`, `a11y-debugging`, `cookie-debugging`, `debug-optimize-lcp`, `memory-leak-debugging` |
 | Load unpacked + drive over CDP + assert | `chrome-for-testing-extensions` |
 | Full build+test loop (this skill) | below |
