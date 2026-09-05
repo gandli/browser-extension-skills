@@ -5,7 +5,7 @@ description: Load unpacked extension over CDP via Chrome for Testing.
 
 # Chrome extension E2E testing over raw CDP
 
-Proven harness (23/23 checks, e2e_test.py + update_test.py + run_all.py). Reusable CDP client installed as this skill's `scripts/cdplib.py` (~150 lines, websocket-client only) — copy it into new projects.
+Proven harness: `/Users/user/ext-e2e-test/` (23/23 checks, e2e_test.py + update_test.py + run_all.py). Reusable CDP client installed as this skill's `scripts/cdplib.py` (~150 lines, websocket-client only) — copy it into new projects.
 
 ## Why not stable Chrome
 Chrome 137+ stable **silently ignores** `--load-extension` (no error, extension never loads). Use Chrome for Testing — same stable codebase, automation build, flag works:
@@ -48,6 +48,19 @@ Open `chrome-extension://<id>/popup.html` via `Target.createTarget` — identica
 
 ## MV3 test hooks (fixture design)
 background.js: `onInstalled` → `storage.local.set({lastInstallReason})`; `onMessage` ping → pong + `console.log` (proves SW alive via CDP event capture). popup.js: expose `window.__ping = () => chrome.runtime.sendMessage({type:'ping'})` for round-trip tests.
+
+## Management page (chrome://extensions) — verified 2026-09-06
+
+- WebUI renders ASYNC. A fixed `sleep` returns 0 cards — poll until
+  `extensions-manager > [shadow] extensions-item-list > [shadow] extensions-item`
+  appears (querySelector chain across 2 nested shadow roots).
+- Card data from `extensions-item` shadow root: `#name`, `#version`,
+  `cr-toggle.checked` (enabled), `#inspect-views a` (Service Worker link).
+- Reveal SW link + ID: click toolbar `extensions-toolbar > [shadow] #devMode`
+  (developer mode) before reading.
+- CfT + `--load-extension` → every build shows a normal card, toggle ON,
+  "Service Worker" inspect link (6/6: native, WXT, Plasmo, CRXJS, Extension.js,
+  Bedframe).
 
 ## Verified
 Chrome for Testing 152.0.7977.82 macOS arm64, Python 3.11, websocket-client 1.9.2. 23/23: load, content script ×2 pages, popup save/persist/reopen, SW ping + console capture, SW storage read, upgrade reload, restart persistence, screenshots.
