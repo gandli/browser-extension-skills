@@ -22,18 +22,15 @@ debugging/                     chrome-devtools-mcp skill family (a11y, cookies,
                                LCP, memory leaks, MCP troubleshooting)
 ```
 
-## Why Chrome for Testing
+## Quick start
 
-Chrome 137+ stable **silently ignores** `--load-extension`. The testing skill
-documents the working path (Chrome for Testing + CDP), including the traps:
+See `testing/chrome-for-testing-extensions/SKILL.md` for Chrome for Testing
+install, launch flags, and CDP pitfalls (Chrome 137+ ignores `--load-extension`;
+`awaitPromise` + bare arrow = `{}`; `Target.getTargets` includes component
+extension SWs — filter by ext_id; `onInstalled reason=update` only on
+in-session `#dev-reload-button` reload).
 
-- `awaitPromise` + uncalled arrow function resolves to `{}` — always IIFE
-- `Target.getTargets` mixes in Chrome component-extension service workers —
-  filter by your extension ID
-- `onInstalled reason=update` only fires on in-session reload (`#dev-reload-button`),
-  not on fresh-profile launches
-
-Reference harness with 23/23 passing checks: see the testing skill's SKILL.md.
+See `development/chrome-extension-dev/SKILL.md` for the build+test loop.
 
 ## Sources
 

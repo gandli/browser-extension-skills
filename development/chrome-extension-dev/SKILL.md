@@ -18,7 +18,7 @@ Companion skills (read first for specifics):
 | Load unpacked + drive over CDP + assert | `chrome-for-testing-extensions` |
 | Full build+test loop (this skill) | below |
 
-## Minimal MV3 anatomy (verified fixture at /Users/user/ext-e2e-test/extension/)
+## Minimal MV3 anatomy (reference fixture: this repo's published harness)
 ```json
 // manifest.json
 { "manifest_version": 3,
@@ -32,22 +32,14 @@ Companion skills (read first for specifics):
 - background.js: service worker — NO module-level mutable state (dies ~30s idle); persist to `chrome.storage`. Use `chrome.alarms` not `setTimeout`.
 - content.js: runs in page DOM; communicate with SW via `chrome.runtime.sendMessage` (return `true` in listener to keep channel open).
 
-## hardest MV3 gotchas (from real builds)
-1. **No `eval`/inline script** in extension pages — CSP blocks. Sandbox iframe or Blob/srcdoc for user HTML.
-2. **`tab.url` undefined silently** without `tabs` permission.
-3. **`chrome.action` undefined** without `"action": {}` in manifest.
-4. **`chrome.windows.query` doesn't exist** — use `getAll`/`getLastFocused`/`getCurrent`.
-5. **Side panel needs an open trigger** — `chrome.action.onClicked` (only when NO default_popup) or `setPanelBehavior({openPanelOnActionClick:true})` (not `...IconClick`).
-6. **`activeTab` only on direct gesture** — not from side panel/popup buttons; use `tabs`+`host_permissions`.
-7. **offscreen docs**: only `chrome.runtime` messaging + Web APIs; no `chrome.tabs`/`downloads`/`action`.
-8. Icons/notifications: **referenced files must exist** or call fails.
+## MV3 gotchas
+All covered by `chrome-extensions` mandatory rules 1-20 (CSP/sandbox, tabs permission, `"action":{}`, windows API, side-panel trigger, activeTab, offscreen, icon files). Read that skill before writing manifest/API code — no restatement here.
 
 ## Test loop (mandatory before declaring done)
 Use `chrome-for-testing-extensions`. Real browser, real load, real assertions. Never claim an extension works without running it:
 ```bash
-# /Users/user/ext-e2e-test is a working reference: run_all.py -> 23/23
-# 1. install Chrome for Testing (stable ignores --load-extension since v137)
-npx -y @puppeteer/browsers install chrome@stable   # CI: find chrome -name 'Google Chrome for Testing' -type f
+# 1. install Chrome for Testing (stable ignores --load-extension since v137 — see testing skill)
+npx -y @puppeteer/browsers install chrome@stable
 # 2. launch + --load-extension + --remote-allow-origins=*
 # 3. drive over CDP (see cdplib.py / chrome-for-testing-extensions)
 ```
@@ -57,4 +49,4 @@ Assert matrix (each a real failure we hit): extension listed & enabled in chrome
 Maintain `CHROMEWEBSTORE.md` (see `chrome-extensions` Part 2): every permission needs a specific plain-English justification; never "needed to work". Pre-publish: review-checklist.md, 1 screenshot 1280x800, ZIP excludes .git/node_modules/.env. Respond to rejections by updating the file.
 
 ## Verified
-macOS Sequoia, Chrome for Testing 152.0.7977.82 arm64, Python 3.11, websocket-client 1.9.2. Reference harness 23/23: /Users/user/ext-e2e-test/ (e2e_test.py, update_test.py, run_all.py, scripts/cdplib.py, screenshot_demo.py).
+macOS Sequoia, Chrome for Testing 152.0.7977.82 arm64, Python 3.11, websocket-client 1.9.2. Reference harness 23/23 checks (e2e, upgrade flow, run_all).
